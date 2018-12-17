@@ -1,0 +1,91 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'style/main.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'style/formulario.css' %}" type="text/css">
+    <title>Mis Perris</title>
+</head>
+<body>
+        {% if user.is_authenticated %}
+        <h1>Hola {{ user.username }}</h1>
+        <a href="{% url 'sign_out' %}">Cerrar sesión</a>
+         {% else %}
+        <a href="{% url 'sign_up' %}">Registrate</a>
+        <a href="{% url 'sign_in' %}">Iniciar sesión</a>
+        {% endif %}
+    <nav>
+        <div>
+            <h1>Formulario</h1>
+            <nav class="menu">
+              <a class="menu-item" href="{% url 'index' %}">Inicio</a>
+              <a class="menu-item" href="{% url 'formulario' %}">Formulario</a>
+              <a class="menu-item" href="{% url 'Informacion' %}">Informacion</a>
+            </nav>
+        </div>
+    </nav>
+    <main>
+        <form> 
+            <div>
+                <div>
+                <label for="txtRut">Rut: </label>
+                <input id="txtRut" type="text" maxlength="10"
+                        onkeyup="validatorRut()" placeholder="Ingrese Rut" required 
+                   />
+                </div>
+                <div>
+                  <label for="txtName">Nombre:</label>
+                    <input type="text" 
+                       minlength="1" id="txtName" pattern="([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([ ]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([ ]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})" 
+                       title="Debe ingresar nombre(s) y apellidos"
+                       placeholder="ingrese nombre(s) y apellidos" required/>        
+                </div>
+                <div>
+                  <label for="txtFecha">Fecha Nacimiento: </label>
+                    <input type="date" id="txtDate" placeholder="ingrese fecha" required
+                        min="1900-01-01" max="2000-12-31"
+                        />
+                </div>
+                <div>
+                    <label for="txtCelular">Celular : </label>
+                     <input type="text" id="txtCelular" placeholder="56 9 XXXXXXXX" pattern="[0-9]{11}"
+                        title="ingresar solo numeros"                required
+                      />
+                </div>
+                    <div>
+                       <label for="txtEmail">E-mail: </label>
+                        <input type="email" id="txtEmail" placeholder="example@example.com" pattern=[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}
+                        title="ingresar formato correcto"                required    
+                            />
+                    </div>
+                    <div>
+                        <label for="txtRegion">Region: </label>
+                        <select id="txtRegion" oninput="selectCity()" required>     
+                        </select>
+                        <label for="txtCity">Ciudad: </label>
+                        <select id="txtCity" required>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="txtTipo">Tipo de Vivienda: </label>
+                        <select id="txtTipo" required>
+                                <option>Casa con patio grande</option>
+                                <option>Casa con patio pequeño</option>
+                                <option>Casa sin patio</option>
+                                <option>Departamento</option>
+                        </select>
+                    </div>
+                    <div class="btnIngresar" id="Ingresar" for="boton">
+                                <button id="boton">Ingresar</button>
+                    </div>
+            </form>  
+    </main>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/citySelector.js"></script>
+    &copy; Todos los derechos reservados
+</body>
+</html>

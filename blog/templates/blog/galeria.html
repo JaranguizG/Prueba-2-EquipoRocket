@@ -1,0 +1,44 @@
+
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+  <link rel="stylesheet" href="{% static 'style/main.css' %}">
+  <title>Galeria</title>
+<body>
+    {% if user.is_authenticated %}
+    <h1>Hola {{ user.username }}</h1>
+    <a href="{% url 'sign_out' %}">Cerrar sesión</a>
+     {% else %}
+    <a href="{% url 'sign_up' %}">Registrate</a>
+    <a href="{% url 'sign_in' %}">Iniciar sesión</a>
+    {% endif %}
+    <nav>
+        <div>
+            <h1>Mis Perris</h1>
+            <nav class="menu">
+              <a class="menu-item" href="{% url 'index' %}">Inicio</a>
+              <a class="menu-item" href="{% url 'galeria' %}">Galeria</a>
+              <a class="menu-item" href="{% url 'formulario' %}">Formulario</a>
+              <a class="menu-item" href="{% url 'Informacion' %}">Informacion</a>
+            </nav>
+        </div>
+    </nav>
+  <main>
+    <h2 >Galeria Perros En Adopcion </h2>
+  <div id="perritos">
+        {% for perros in perros %}
+         <div class="Perros">
+            <p id="texto">
+              <img src="/media/{{ perros.imagen }}" width="325" height="300" alt="{{ perros.nombre }}">
+              <p>Nombre:{{ perros.nombre }}</p>
+              <p>Raza: {{ perros.raza }}</p>
+              <p>Estado: {{ perros.estado }}</p>
+              <p>Descripcion: {{ perros.desc }}</p>
+         </div>
+         {% endfor %}
+     </div>
+  </main>
+</body>
+</html>
+{% endblock %}
